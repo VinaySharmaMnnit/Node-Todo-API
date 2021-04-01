@@ -8,7 +8,7 @@ MongoClient.connect('mongodb://localhost:27017/TodoApp',(err,db)=>{
     console.log("Connected to mongodb");
 
     db.collection('Todos').find().count().then((count)=>{
-        console.log(`Users count is ${count}`);
+        console.log(`Todos count is ${count}`);
     })
    
    /* db.collection('Todos').find({active:true}).toArray().then((docs)=>{
