@@ -14,12 +14,12 @@ var todos = [{
     text:"second todo",
     completed:true,
     completedAt:332
-}]
+}];
 beforeEach((done)=>{
     Todo.remove({}).then(()=>{
         Todo.insertMany(todos)
         .then(()=>done());
-    });
+    }).catch((e)=>done(e));
 });
 
 describe('POST /todos',()=>{
