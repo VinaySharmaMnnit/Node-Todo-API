@@ -67,11 +67,7 @@ UserSchema.statics.findByToken = function(token){
 //this function runs before we save user to User
 //this is a middleware it should be provided with (next) otherwise the program will crash
 
-// bcrypt.genSalt(10,(err,salt)=>{
-//     bcrypt.hash(password,salt,(err,hash)=>{
-//         console.log(hash);
-//     })
-// })
+
 UserSchema.pre('save',function(next){
     var user = this;
     var password = user.password;
