@@ -9,6 +9,7 @@ var authenticate =(req,res,next)=>{
       }
       req.user = user;
       req.token = token;
+      
       next(); // "./users/me" is not accessible until next() is called
     }).catch((e)=>{
         res.status(401).send();

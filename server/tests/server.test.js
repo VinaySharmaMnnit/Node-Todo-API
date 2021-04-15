@@ -4,7 +4,7 @@ const request = require('supertest');
 const {app} = require("../server");
 const {Todo}= require("../models/Todo.js");
 const { ObjectID } = require('mongodb');
-const {todos,populatetodos,users,populateusers} = require('./seed/seed.js');
+const {todos,populatetodos,users,populateusers} = require('./seed/seed');
 
 //this is used to empty database to test test cases
 beforeEach(populateusers);
@@ -177,5 +177,31 @@ describe('UPDATE /todos/id',()=>{
         .end(done);
 
 
+    })
+});
+
+
+describe('GET /users',()=>{
+    //console.log(users[0].tokens.token);
+    it('should return user if authenticated',(done)=>{
+        request(app)
+        .get('users/me')
+        .set('x-auth',users[0].tokens.token)
+        .expect(200)
+        .expect((res)=>{
+            expect(res.body._id).toBe(users[0]._id.toHexString());
+            expect(res.body.email).toBe(users[0].email);
+        })
+        .end(done);
+    });
+
+    it('should return error if not authenticated',(done)=>{
+        request(app)
+        .get('users/me')
+        .expect(401)
+        .expect((res)=>{
+            expect(res.body).toEqual({})
+        })
+        .end(done)
     })
 })
