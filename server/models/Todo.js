@@ -14,6 +14,10 @@ var Todo= mongoose.model('Todo',{
     completedAt:{
         type:Number,
         default:null
+    },
+    _creater:{           //this is used for private routing,without logging in no one can enter into it
+        type:mongoose.Schema.Types.ObjectId,
+        required:true
     }
 });
 

@@ -17,9 +17,10 @@ var app = express();
 app.use(bodyParser.json());
 
 //post request to create a new Todo
-app.post('/todos',(req,res)=>{
+app.post('/todos',authenticate,(req,res)=>{
    var todo = new Todo({
-       text: req.body.text
+       text: req.body.text,
+       _creater:req.user._id    //_creater is added to make this route private
    });
 
    todo.save().then((doc)=>{
@@ -31,9 +32,11 @@ app.post('/todos',(req,res)=>{
 
 
 
-app.get('/todos',(req,res)=>{
+app.get('/todos',authenticate,(req,res)=>{
     //to fetch all Todos
-    Todo.find().then((todos)=>{
+    Todo.find({
+        _creater:req.user._id
+    }).then((todos)=>{
         res.send({todos});
     },(e)=>{
         res.status(400).send(e);
