@@ -9,10 +9,10 @@ var users = [{
     _id:userOneId,
     email:'vinay@gmail.com',
     password:'userOnePass',
-    tokens:{
+    tokens:[{
         access:'auth',
         token: jwt.sign({_id:userOneId,access:'auth'},'abc123').toString()
-    }},
+    }]},
     {
         _id:userTwoId,
         email:'vinay2@gmail.com',
